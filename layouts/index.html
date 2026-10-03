@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <img class="hero" src="/images/remains-press-photo-quoted.jpg" width="900" height="636"
+       alt="“They were how you told a stranger about Rock ’n’ Roll.” — Jon Landau, Crawdaddy, January 1967. Photo of The Remains.">
+  <div class="columns">
+    <div class="col-side">
+      {{ with .Params.audio }}{{ partial "audio.html" . }}{{ end }}
+      {{ with .Params.quote }}
+      <figure class="quote">
+        <blockquote>{{ .text }}</blockquote>
+        <figcaption>— {{ .source }}</figcaption>
+      </figure>
+      {{ end }}
+    </div>
+    <div class="col-main">
+      {{ .Content }}
+    </div>
+  </div>
+{{ end }}

@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ $upcoming := where .RegularPages "Date" "ge" now }}
+  {{ $past := where .RegularPages "Date" "lt" now }}
+  {{ if $upcoming }}
+    <ul class="shows">{{ range $upcoming.ByDate }}{{ partial "show-item.html" . }}{{ end }}</ul>
+  {{ else }}
+    <p>No upcoming shows.</p>
+  {{ end }}
+  {{ with $past }}
+    <h2>Past shows</h2>
+    <ul class="shows past">{{ range .ByDate.Reverse }}{{ partial "show-item.html" . }}{{ end }}</ul>
+  {{ end }}
+{{ end }}

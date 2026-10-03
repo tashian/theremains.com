@@ -1,0 +1,34 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  <div class="gallery">
+    {{ range $i, $img := .Params.images }}
+      <a href="{{ $img.src }}" data-index="{{ $i }}"><img src="{{ $img.src }}" loading="lazy" alt="{{ $img.alt | default "Scrap book image" }}"{{ with $img.width }} width="{{ . }}"{{ end }}{{ with $img.height }} height="{{ . }}"{{ end }}></a>
+    {{ end }}
+  </div>
+  <dialog class="lightbox" aria-label="Image viewer">
+    <button class="close" aria-label="Close">×</button>
+    <button class="prev" aria-label="Previous">‹</button>
+    <img alt="">
+    <button class="next" aria-label="Next">›</button>
+  </dialog>
+  <script>
+  (() => {
+    const links = [...document.querySelectorAll('.gallery a')];
+    const dlg = document.querySelector('.lightbox');
+    const img = dlg.querySelector('img');
+    let i = 0;
+    const show = (n) => { i = (n + links.length) % links.length; img.src = links[i].href; img.alt = links[i].querySelector('img').alt; };
+    links.forEach((a, n) => a.addEventListener('click', (e) => { e.preventDefault(); show(n); dlg.showModal(); }));
+    dlg.querySelector('.prev').onclick = () => show(i - 1);
+    dlg.querySelector('.next').onclick = () => show(i + 1);
+    dlg.querySelector('.close').onclick = () => dlg.close();
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    document.addEventListener('keydown', (e) => {
+      if (!dlg.open) return;
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+  })();
+  </script>
+{{ end }}

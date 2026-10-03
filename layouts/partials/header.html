@@ -1,0 +1,10 @@
+<header class="site-header">
+  <a class="logo" href="/"><img src="/images/remains-logo.png" alt="The Remains" width="293" height="50"></a>
+  <nav>
+    {{ $here := .RelPermalink }}
+    {{ range site.Menus.main }}
+      {{ $active := cond (eq .URL "/") (eq $here "/") (hasPrefix $here .URL) }}
+      <a href="{{ .URL }}"{{ if $active }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{ end }}
+  </nav>
+</header>

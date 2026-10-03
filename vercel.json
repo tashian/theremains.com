@@ -1,0 +1,12 @@
+{
+	"trailingSlash": true,
+	"redirects": [
+		{ "source": "/home", "destination": "/", "permanent": true },
+		{ "source": "/film", "destination": "/documentary/", "permanent": true }
+	],
+	"build": {
+		"env": {
+			"HUGO_VERSION": "0.152.2"
+		}
+	}
+}
