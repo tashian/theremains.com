@@ -1,5 +1,6 @@
 ---
 title: "The Remains"
+aliases: ["/home/"]
 audio:
   artist: "The Remains"
   title: "Time of Day"
